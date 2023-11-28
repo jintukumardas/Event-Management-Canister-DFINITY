@@ -1,0 +1,28 @@
+type Event = record {
+  id : text;
+  status : text;
+  endDate : nat64;
+  ownerName : text;
+  ownerId : text;
+  assetDescription : text;
+  assetType : text;
+  startDate : nat64;
+};
+type EventPayload = record {
+  status : text;
+  ownerName : text;
+  assetDescription : text;
+  assetType : text;
+};
+type _AzleResult = variant { Ok : Event; Err : text };
+type _AzleResult_1 = variant { Ok : vec Event; Err : text };
+service : () -> {
+  createEvent : (EventPayload) -> (_AzleResult);
+  deleteEvent : (text, text) -> (_AzleResult);
+  endEvent : (text, text) -> (_AzleResult);
+  getAllEvents : () -> (_AzleResult_1) query;
+  getEventById : (text) -> (_AzleResult) query;
+  getEventsByStatus : (text) -> (_AzleResult_1) query;
+  getOwnersEvents : (text) -> (_AzleResult_1) query;
+  updateEvent : (text, text, EventPayload) -> (_AzleResult);
+}
